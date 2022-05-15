@@ -1,9 +1,22 @@
 fileFormatVersion: 2
-guid: 9111394be0191e04c8f5e0eef6430663
+guid: 94bdb8b338543f5408687ccac4b77c90
 ModelImporter:
   serializedVersion: 21202
-  internalIDToNameTable: []
-  externalObjects: {}
+  internalIDToNameTable:
+  - first:
+      74: 1989289236423521904
+    second: Default Take
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main_Material
+    second: {fileID: 2100000, guid: 8850228161e87fb4aaf39255efa9fde4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main_Material__Bobble_Wars_Marine_texture_psd
+    second: {fileID: 2100000, guid: 8850228161e87fb4aaf39255efa9fde4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
