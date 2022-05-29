@@ -2,14 +2,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private static readonly int IsMoving = Animator.StringToHash("IsMoving");
+    
     [SerializeField] private float _moveSpeed = 50.0f;
     [SerializeField] private float _rotateSpeed = 10.0f;
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private Rigidbody _headRb;
+    [SerializeField] private Animator _animator;
     public LayerMask layerMask;
 
     private Vector3 _currentLookTarget = Vector3.zero;
     private Vector3 _targetPosition;
+    
 
     private void Update()
     {
@@ -22,11 +26,12 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         if (moveDirection == Vector3.zero)
         {
-            // TODO
+            _animator.SetBool(IsMoving, false);
         }
         else
         {
             _headRb.AddForce(transform.right * 150, ForceMode.Acceleration);
+            _animator.SetBool(IsMoving, true);
         }
 
         RaycastHit hit;
