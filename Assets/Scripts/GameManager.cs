@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,14 +14,45 @@ public class GameManager : MonoBehaviour
     public float minSpawnTime;
     public float maxSpawnTime;
     public int aliensPerSpawn;
+    public GameObject upgradePrefab;
+    public Gun gun;
+    public float upgradeMaxTimeSpawn = 7.5f;
 
     private int _aliensOnScreen = 0;
     private float _generatedSpawnTime = 0;
     private float _currentSpawnTime = 0;
+    private bool _spawnedUpgrade = false;
+    private float _actualUpgradeTime = 0;
+    private float _currentUpgradeTime = 0;
+
+    private void Start()
+    {
+        _actualUpgradeTime = Random.Range(upgradeMaxTimeSpawn - 3.0f, upgradeMaxTimeSpawn);
+        _actualUpgradeTime = Mathf.Abs(_actualUpgradeTime);
+    }
 
     private void Update()
     {
+        _currentUpgradeTime += Time.deltaTime;
         _currentSpawnTime += Time.deltaTime;
+        if (_currentUpgradeTime > _actualUpgradeTime)
+        {
+            // 1
+            if (!_spawnedUpgrade)
+            {
+                // 2
+                int randomNumber = Random.Range(0, _spawnPoints.Length - 1);
+                GameObject spawnLocation = _spawnPoints[randomNumber];
+                // 3
+                GameObject upgrade = Instantiate(upgradePrefab);
+                Upgrade upgradeScript = upgrade.GetComponent<Upgrade>();
+                upgradeScript.gun = gun;
+                upgrade.transform.position = spawnLocation.transform.position;
+                // 4
+                _spawnedUpgrade = true;
+                SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpAppear);
+            }
+        }
 
         if (_currentSpawnTime > _generatedSpawnTime)
         {

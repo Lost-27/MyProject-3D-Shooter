@@ -26,5 +26,6 @@ public class AlienBeetle : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
     }
 }
