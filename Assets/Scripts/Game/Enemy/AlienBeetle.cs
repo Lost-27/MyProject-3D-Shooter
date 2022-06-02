@@ -9,25 +9,28 @@ public class AlienBeetle : MonoBehaviour
     public Transform _target;
     public UnityEvent OnDestroy;
     public bool isAlive = true;
-    
-    [Header("Setting death")]
+
+    [Header("Setting death")] 
     [SerializeField] private Rigidbody _headRb;
+    [SerializeField] private DeathParticles _deathParticles;
 
     [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private float navigationUpdate;
+    [SerializeField] private float _navigationUpdate;
 
     private float _navigationTime;
-
 
     private void Update()
     {
         if (isAlive)
         {
-            _navigationTime += Time.deltaTime;
-            if (_navigationTime > navigationUpdate)
+            if (_target != null)
             {
-                _agent.destination = _target.position;
-                _navigationTime = 0;
+                _navigationTime += Time.deltaTime;
+                if (_navigationTime > _navigationUpdate)
+                {
+                    _agent.destination = _target.position;
+                    _navigationTime = 0;
+                }
             }
         }
     }
@@ -53,6 +56,22 @@ public class AlienBeetle : MonoBehaviour
         OnDestroy.RemoveAllListeners();
         SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
         _headRb.GetComponent<SelfDestruct>().Initiate();
+        if (_deathParticles)
+        {
+            _deathParticles.transform.parent = null;
+            _deathParticles.Activate();
+        }
+
         Destroy(gameObject);
+    }
+
+    public DeathParticles GetDeathParticles()
+    {
+        if (_deathParticles == null)
+        {
+            _deathParticles = GetComponentInChildren<DeathParticles>();
+        }
+
+        return _deathParticles;
     }
 }

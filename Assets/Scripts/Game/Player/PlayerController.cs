@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Setting death")]
     [SerializeField] private Rigidbody _bodyRb;
+    [SerializeField] private DeathParticles _deathParticles;
     
 
     private Vector3 _currentLookTarget = Vector3.zero;
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
         _headRb.transform.parent = null;
         _headRb.useGravity = true;
         SoundManager.Instance.PlayOneShot(SoundManager.Instance.marineDeath);
+        _deathParticles.Activate();
         Destroy(gameObject);
     }
 }

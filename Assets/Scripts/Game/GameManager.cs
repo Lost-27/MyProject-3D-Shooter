@@ -4,9 +4,12 @@ using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
+    private static readonly int PlayerWon = Animator.StringToHash("PlayerWon");
+    
     [SerializeField] private GameObject _player;
     [SerializeField] private GameObject[] _spawnPoints;
     [SerializeField] private GameObject _alienBeetle;
+    [SerializeField] private Animator _arenaAnimator;
 
     public int maxAliensOnScreen;
     public int totalAliens;
@@ -14,15 +17,16 @@ public class GameManager : MonoBehaviour
     public float maxSpawnTime;
     public int aliensPerSpawn;
     public GameObject upgradePrefab;
+    public GameObject deathFloor;
     public Gun gun;
     public float upgradeMaxTimeSpawn = 7.5f;
 
-    private int _aliensOnScreen = 0;
-    private float _generatedSpawnTime = 0;
-    private float _currentSpawnTime = 0;
-    private bool _spawnedUpgrade = false;
-    private float _actualUpgradeTime = 0;
-    private float _currentUpgradeTime = 0;
+    private int _aliensOnScreen;
+    private float _generatedSpawnTime;
+    private float _currentSpawnTime;
+    private bool _spawnedUpgrade;
+    private float _actualUpgradeTime;
+    private float _currentUpgradeTime;
 
     private void Start()
     {
@@ -101,6 +105,7 @@ public class GameManager : MonoBehaviour
                         Vector3 targetRotation = new Vector3(_player.transform.position.x, newAlienBeetle.transform.position.y, _player.transform.position.z);
                         newAlienBeetle.transform.LookAt(targetRotation);
                         alienBeetle.OnDestroy.AddListener(AlienDestroyed);
+                        alienBeetle.GetDeathParticles().SetDeathFloor(deathFloor);
                     }
                 }
             }
@@ -111,5 +116,15 @@ public class GameManager : MonoBehaviour
     {
         _aliensOnScreen -= 1;
         totalAliens -= 1;
+        
+        if (totalAliens == 0)
+        {
+            Invoke(nameof(EndGame), 2.0f);
+        }
+    }
+    private void EndGame()
+    {
+        SoundManager.Instance.PlayOneShot(SoundManager.Instance.elevatorArrived);
+        _arenaAnimator.SetTrigger(PlayerWon);
     }
 }
