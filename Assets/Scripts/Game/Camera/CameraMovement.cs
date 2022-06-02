@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraMovement : MonoBehaviour
+namespace AlienArenas.Game.Camera
 {
-    public GameObject followTarget;
-    public float moveSpeed;
-
-    private void Update()
+    public class CameraMovement : MonoBehaviour
     {
-        if (followTarget != null)
+        public GameObject followTarget;
+        public float moveSpeed;
+
+        private void Update()
         {
-            transform.position = Vector3.Lerp(transform.position, followTarget.transform.position,
-                Time.deltaTime * moveSpeed);
+            if (followTarget != null)
+            {
+                transform.position = Vector3.Lerp(transform.position, followTarget.transform.position,
+                    Time.deltaTime * moveSpeed);
+            }
         }
     }
 }

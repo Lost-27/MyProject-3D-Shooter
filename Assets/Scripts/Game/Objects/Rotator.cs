@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 
-public class Rotator : MonoBehaviour
+namespace AlienArenas.Game.Objects
 {
-    public int rotationSpeed;
-
-    private void Update()
+    public class Rotator : MonoBehaviour
     {
-        transform.Rotate(new Vector3(0, rotationSpeed, 0) * Time.deltaTime);
+        public int rotationSpeed;
+
+        private void Update()
+        {
+            transform.Rotate(new Vector3(0, rotationSpeed, 0) * Time.deltaTime);
+        }
     }
 }

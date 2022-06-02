@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+namespace AlienArenas.Game.Objects
 {
-    private void OnCollisionEnter(Collision collision)
+    public class Bullet : MonoBehaviour
     {
-        Destroy(gameObject);
-    }
+        private void OnCollisionEnter(Collision collision)
+        {
+            Destroy(gameObject);
+        }
 
-    private void OnBecameInvisible()
-    {
-        Destroy(gameObject);
+        private void OnBecameInvisible()
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -1,77 +1,78 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Gun : MonoBehaviour
+namespace AlienArenas.Game.Objects
 {
-    public GameObject bulletPrefab;
-    public Transform launchPosition;
-    public bool isUpgraded;
-    public float upgradeTime = 10.0f;
-
-    private float _currentTime;
-    private AudioSource _audioSource;
-
-    private void Start()
+    public class Gun : MonoBehaviour
     {
-        _audioSource = GetComponent<AudioSource>();
-    }
+        public GameObject bulletPrefab;
+        public Transform launchPosition;
+        public bool isUpgraded;
+        public float upgradeTime = 10.0f;
 
-    private void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
+        private float _currentTime;
+        private AudioSource _audioSource;
+
+        private void Start()
         {
-            if (!IsInvoking(nameof(FireBullet)))
+            _audioSource = GetComponent<AudioSource>();
+        }
+
+        private void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                InvokeRepeating(nameof(FireBullet), 0f, 0.1f);
+                if (!IsInvoking(nameof(FireBullet)))
+                {
+                    InvokeRepeating(nameof(FireBullet), 0f, 0.1f);
+                }
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                CancelInvoke(nameof(FireBullet));
+            }
+
+            _currentTime += Time.deltaTime;
+            if (_currentTime > upgradeTime && isUpgraded)
+            {
+                isUpgraded = false;
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        public void UpgradeGun()
         {
-            CancelInvoke(nameof(FireBullet));
+            isUpgraded = true;
+            _currentTime = 0;
         }
 
-        _currentTime += Time.deltaTime;
-        if (_currentTime > upgradeTime && isUpgraded)
+        private void FireBullet()
         {
-            isUpgraded = false;
-        }
-    }
+            Rigidbody bullet = СreateBullet();
+            bullet.velocity = transform.parent.forward * 100;
 
-    public void UpgradeGun()
-    {
-        isUpgraded = true;
-        _currentTime = 0;
-    }
+            if (isUpgraded)
+            {
+                Rigidbody bullet2 = СreateBullet();
+                bullet2.velocity = (transform.right + transform.forward / 0.5f) * 50;
+                Rigidbody bullet3 = СreateBullet();
+                bullet3.velocity = ((transform.right * -1) + transform.forward / 0.5f) * 50;
+            }
 
-    private void FireBullet()
-    {
-        Rigidbody bullet = СreateBullet();
-        bullet.velocity = transform.parent.forward * 100;
-
-        if (isUpgraded)
-        {
-            Rigidbody bullet2 = СreateBullet();
-            bullet2.velocity = (transform.right + transform.forward / 0.5f) * 50;
-            Rigidbody bullet3 = СreateBullet();
-            bullet3.velocity = ((transform.right * -1) + transform.forward / 0.5f) * 50;
+            if (isUpgraded)
+            {
+                _audioSource.PlayOneShot(SoundManager.Instance.upgradedGunFire);
+            }
+            else
+            {
+                _audioSource.PlayOneShot(SoundManager.Instance.gunFire);
+            }
         }
 
-        if (isUpgraded)
+        private Rigidbody СreateBullet()
         {
-            _audioSource.PlayOneShot(SoundManager.Instance.upgradedGunFire);
+            GameObject bullet = Instantiate(bulletPrefab);
+            bullet.transform.position = launchPosition.position;
+            return bullet.GetComponent<Rigidbody>();
         }
-        else
-        {
-            _audioSource.PlayOneShot(SoundManager.Instance.gunFire);
-        }
-    }
-
-    private Rigidbody СreateBullet()
-    {
-        GameObject bullet = Instantiate(bulletPrefab);
-        bullet.transform.position = launchPosition.position;
-        return bullet.GetComponent<Rigidbody>();
     }
 }

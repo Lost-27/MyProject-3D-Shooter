@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Upgrade : MonoBehaviour
+namespace AlienArenas.Game.Objects
 {
-    public Gun gun;
-    private void OnTriggerEnter(Collider other)
+    public class Upgrade : MonoBehaviour
     {
-        gun.UpgradeGun();
-        Destroy(gameObject);
-        SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpPickup);
+        public Gun gun;
+        private void OnTriggerEnter(Collider other)
+        {
+            gun.UpgradeGun();
+            Destroy(gameObject);
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpPickup);
+        }
     }
 }
