@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -33,6 +32,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (_player == null)
+        {
+            return;
+        }
         _currentUpgradeTime += Time.deltaTime;
         _currentSpawnTime += Time.deltaTime;
         if (_currentUpgradeTime > _actualUpgradeTime)
@@ -95,12 +98,18 @@ public class GameManager : MonoBehaviour
                         newAlienBeetle.transform.position = spawnLocation.transform.position;
                         AlienBeetle alienBeetle = newAlienBeetle.GetComponent<AlienBeetle>();
                         alienBeetle._target = _player.transform;
-                        Vector3 targetRotation = new Vector3(_player.transform.position.x,
-                            newAlienBeetle.transform.position.y, _player.transform.position.z);
+                        Vector3 targetRotation = new Vector3(_player.transform.position.x, newAlienBeetle.transform.position.y, _player.transform.position.z);
                         newAlienBeetle.transform.LookAt(targetRotation);
+                        alienBeetle.OnDestroy.AddListener(AlienDestroyed);
                     }
                 }
             }
         }
+    }
+    
+    private void AlienDestroyed()
+    {
+        _aliensOnScreen -= 1;
+        totalAliens -= 1;
     }
 }
