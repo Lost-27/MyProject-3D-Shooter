@@ -1,4 +1,4 @@
-using AlienArenas.Game.Camera;
+using AlienArenas.Game.Cam;
 using AlienArenas.Game.Enemy;
 using AlienArenas.Game.Objects;
 using UnityEngine;
@@ -9,9 +9,7 @@ namespace AlienArenas.Game.Player
     {
         private static readonly int IsMoving = Animator.StringToHash("IsMoving");
 
-        public LayerMask layerMask;
 
-        [SerializeField] private float _rotateSpeed = 10.0f;
         [SerializeField] private Rigidbody _headRb;
         [SerializeField] private Animator _animator;
 
@@ -20,13 +18,11 @@ namespace AlienArenas.Game.Player
 
         [SerializeField] private float _timeBetweenHits = 2.5f;
 
-        [Header("Setting death")] [SerializeField]
-        private Rigidbody _bodyRb;
+        [Header("Setting death")]
+        [SerializeField] private Rigidbody _bodyRb;
 
         [SerializeField] private DeathParticles _deathParticles;
 
-        private Vector3 _currentLookTarget;
-        private Vector3 _targetPosition;
         private bool _isHit;
         private float _timeSinceHit;
         private int _hitNumber = -1;
@@ -59,24 +55,6 @@ namespace AlienArenas.Game.Player
                 _animator.SetBool(IsMoving, true);
             }
 
-            RaycastHit hit;
-            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
-
-            Debug.DrawRay(ray.origin, ray.direction * 1000, Color.green);
-
-
-            if (Physics.Raycast(ray, out hit, 1000, layerMask, QueryTriggerInteraction.Ignore))
-            {
-                if (hit.point != _currentLookTarget)
-                {
-                    _currentLookTarget = hit.point;
-                    _targetPosition = new Vector3(hit.point.x, transform.position.y, hit.point.z);
-
-                    Quaternion rotation = Quaternion.LookRotation(_targetPosition - transform.position);
-
-                    transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * _rotateSpeed);
-                }
-            }
         }
 
         void OnTriggerEnter(Collider other)
@@ -88,7 +66,7 @@ namespace AlienArenas.Game.Player
                 if (!_isHit)
                 {
                     _hitNumber += 1; // 2
-                    CameraShake cameraShake = UnityEngine.Camera.main.GetComponent<CameraShake>();
+                    CameraShake cameraShake = Camera.main.GetComponent<CameraShake>();
                     if (_hitNumber < hitForce.Length) // 3
                     {
                         cameraShake.intensity = hitForce[_hitNumber];

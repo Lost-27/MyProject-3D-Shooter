@@ -1,4 +1,4 @@
-using AlienArenas.Game.Camera;
+using AlienArenas.Game.Cam;
 using AlienArenas.Game.Player;
 using UnityEngine;
 

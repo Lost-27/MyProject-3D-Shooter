@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AlienArenas.Game.Camera
+namespace AlienArenas.Game.Cam
 {
     public class CameraShake : MonoBehaviour
     {

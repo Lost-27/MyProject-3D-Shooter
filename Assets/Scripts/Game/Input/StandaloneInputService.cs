@@ -1,7 +1,7 @@
-using UnityEngine;
-
 namespace AlienArenas.Game.Input
 {
+    using UnityEngine;
+
     public class StandaloneInputService : IInputService
     {
         private bool _isLocked;
@@ -13,9 +13,21 @@ namespace AlienArenas.Game.Input
                 if (_isLocked)
                     return Vector2.zero;
 
-                return new Vector2(UnityEngine.Input.GetAxis("Horizontal"), UnityEngine.Input.GetAxis("Vertical"));
+                return new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             }
         }
+
+        public Vector3 MousePosition
+        {
+            get
+            {
+                if (_isLocked)
+                    return Vector3.zero;
+
+                return Input.mousePosition;
+            }
+        }
+
 
         public void SetLocked(bool isLocked) =>
             _isLocked = isLocked;
