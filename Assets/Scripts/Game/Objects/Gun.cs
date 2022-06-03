@@ -19,7 +19,7 @@ namespace AlienArenas.Game.Objects
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (UnityEngine.Input.GetMouseButtonDown(0))
             {
                 if (!IsInvoking(nameof(FireBullet)))
                 {
@@ -27,7 +27,7 @@ namespace AlienArenas.Game.Objects
                 }
             }
 
-            if (Input.GetMouseButtonUp(0))
+            if (UnityEngine.Input.GetMouseButtonUp(0))
             {
                 CancelInvoke(nameof(FireBullet));
             }

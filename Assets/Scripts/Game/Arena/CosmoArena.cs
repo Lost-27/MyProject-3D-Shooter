@@ -17,7 +17,7 @@ namespace AlienArenas.Game.Arena
         {
             UnityEngine.Camera.main.transform.parent.gameObject.GetComponent<CameraMovement>().enabled = false;
             player.transform.parent = elevator.transform;
-            player.GetComponent<PlayerController>().enabled = false;
+            player.GetComponent<PlayerMovement>().enabled = false;
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.elevatorArrived);
             _arenaAnimator.SetBool(OnElevator, true);
         }

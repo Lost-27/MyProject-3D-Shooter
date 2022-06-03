@@ -11,22 +11,21 @@ namespace AlienArenas.Game.Player
 
         public LayerMask layerMask;
 
-        [SerializeField] private float _moveSpeed = 50.0f;
         [SerializeField] private float _rotateSpeed = 10.0f;
-        [SerializeField] private CharacterController _characterController;
         [SerializeField] private Rigidbody _headRb;
         [SerializeField] private Animator _animator;
 
-        [Header("Setting delay hit")]
+        [Header("Setting delay hit")] 
         [SerializeField] private float[] hitForce;
-        [SerializeField] private float _timeBetweenHits = 2.5f;
-    
-        [Header("Setting death")]
-        [SerializeField] private Rigidbody _bodyRb;
-        [SerializeField] private DeathParticles _deathParticles;
-    
 
-        private Vector3 _currentLookTarget = Vector3.zero;
+        [SerializeField] private float _timeBetweenHits = 2.5f;
+
+        [Header("Setting death")] [SerializeField]
+        private Rigidbody _bodyRb;
+
+        [SerializeField] private DeathParticles _deathParticles;
+
+        private Vector3 _currentLookTarget;
         private Vector3 _targetPosition;
         private bool _isHit;
         private float _timeSinceHit;
@@ -35,9 +34,6 @@ namespace AlienArenas.Game.Player
 
         private void Update()
         {
-            Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            _characterController.SimpleMove(moveDirection * _moveSpeed);
-        
             if (_isHit)
             {
                 _timeSinceHit += Time.deltaTime;
@@ -51,7 +47,8 @@ namespace AlienArenas.Game.Player
 
         private void FixedUpdate()
         {
-            Vector3 moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Vector3 moveDirection = new Vector3(UnityEngine.Input.GetAxis("Horizontal"), 0,
+                UnityEngine.Input.GetAxis("Vertical"));
             if (moveDirection == Vector3.zero)
             {
                 _animator.SetBool(IsMoving, false);
@@ -63,7 +60,7 @@ namespace AlienArenas.Game.Player
             }
 
             RaycastHit hit;
-            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = UnityEngine.Camera.main.ScreenPointToRay(UnityEngine.Input.mousePosition);
 
             Debug.DrawRay(ray.origin, ray.direction * 1000, Color.green);
 
@@ -109,6 +106,7 @@ namespace AlienArenas.Game.Player
                 alienBeetle.Die();
             }
         }
+
         public void Die()
         {
             _animator.SetBool(IsMoving, false);
