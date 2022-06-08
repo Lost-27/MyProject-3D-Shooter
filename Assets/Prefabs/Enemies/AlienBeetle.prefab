@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5447357473980626097}
   - component: {fileID: 8020547314464810363}
   - component: {fileID: 3451711209526788641}
+  - component: {fileID: 6512784044681766910}
   m_Layer: 6
   m_Name: AlienBeetle
   m_TagString: Untagged
@@ -110,6 +111,19 @@ MonoBehaviour:
   _deathParticles: {fileID: 0}
   _agent: {fileID: 8020547314464810363}
   _navigationUpdate: 0
+--- !u!114 &6512784044681766910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602123646582263760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a691f394be4121baf15f222ece8f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 1
 --- !u!1001 &837053273
 PrefabInstance:
   m_ObjectHideFlags: 0

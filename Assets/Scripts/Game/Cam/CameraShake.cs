@@ -9,7 +9,7 @@ namespace AlienArenas.Game.Cam
 
         private Vector3 _originPosition;
         private Quaternion _originRotation;
-        private float _shakeIntensity = 0;
+        private float _shakeIntensity;
 
         private void Update()
         {

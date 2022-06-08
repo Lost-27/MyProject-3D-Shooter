@@ -288,8 +288,12 @@ GameObject:
   m_Component:
   - component: {fileID: 323471075}
   - component: {fileID: 323471077}
-  - component: {fileID: 323471076}
   - component: {fileID: 323471078}
+  - component: {fileID: 323471081}
+  - component: {fileID: 323471076}
+  - component: {fileID: 323471082}
+  - component: {fileID: 323471080}
+  - component: {fileID: 323471079}
   m_Layer: 12
   m_Name: SpaceMarine
   m_TagString: Untagged
@@ -327,14 +331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _headRb: {fileID: 1031365399}
-  _animator: {fileID: 1869973502}
-  hitForce:
-  - 0.1
-  - 0.2
-  - 0.3
-  _timeBetweenHits: 2.5
-  _bodyRb: {fileID: 1869973501}
-  _deathParticles: {fileID: 1005825608}
+  _playerMovement: {fileID: 323471078}
 --- !u!143 &323471077
 CharacterController:
   m_ObjectHideFlags: 0
@@ -367,10 +364,71 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 323471077}
   _moveSpeed: 40
-  _rotateSpeed: 10
+  _rotateSpeed: 8
   _layerMask:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &323471079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323471074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f26099320a143f19b84cb7dec4a6f3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerMovement: {fileID: 323471078}
+  _playerHealth: {fileID: 323471081}
+  _headRb: {fileID: 1031365399}
+  _bodyRb: {fileID: 1869973501}
+  _deathParticles: {fileID: 1005825608}
+--- !u!114 &323471080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323471074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a86fb7d8f4d40968dd51145155208a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1869973502}
+--- !u!114 &323471081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323471074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f5d4e11c41f47e9b79ced61606a636f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 3
+  _hitForce:
+  - 0.1
+  - 0.2
+  - 0.3
+--- !u!114 &323471082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 323471074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067f8967c48a48a5a731171ba7812349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timeBetweenHits: 2.5
+  _playerHealth: {fileID: 323471081}
 --- !u!1 &433988272
 GameObject:
   m_ObjectHideFlags: 0

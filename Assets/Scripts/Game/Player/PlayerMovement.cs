@@ -6,15 +6,14 @@ namespace AlienArenas.Game.Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        [Header("Components")]
+        [Header("Components")] 
         [SerializeField] private CharacterController _controller;
 
-        [Header("Movement Settings")]
+        [Header("Movement Settings")] 
         [SerializeField] private float _moveSpeed = 50.0f;
 
-        [Header("Rotation Settings")]
+        [Header("Rotation Settings")] 
         [SerializeField] private float _rotateSpeed = 10.0f;
-
         [SerializeField] private LayerMask _layerMask;
 
         private IInputService _inputService;
@@ -22,6 +21,8 @@ namespace AlienArenas.Game.Player
         private Transform _cachedTransform;
         private Vector3 _currentLookTarget;
         private Vector3 _targetPosition;
+        
+        public Vector3 MoveDirection { get; private set; }
 
         [Inject]
         public void Construct(IInputService inputService)
@@ -45,11 +46,16 @@ namespace AlienArenas.Game.Player
             Rotation();
         }
 
+        public void ResetMove()
+        {
+            MoveDirection = Vector3.zero;
+        }
+
         private void Move()
         {
             Vector2 moveAxis = _inputService.MoveAxis;
-            Vector3 moveDirection = new Vector3(moveAxis.x, 0, moveAxis.y);
-            _controller.SimpleMove(moveDirection * _moveSpeed);
+            MoveDirection = new Vector3(moveAxis.x, 0, moveAxis.y) * _moveSpeed;
+            _controller.SimpleMove(MoveDirection);
         }
 
         private void Rotation()
