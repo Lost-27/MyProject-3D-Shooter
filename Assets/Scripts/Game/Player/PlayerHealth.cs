@@ -1,11 +1,12 @@
 using System;
 using AlienArenas.Game.Cam;
+using AlienArenas.Game.Core;
 using AlienArenas.Game.Enemy;
 using UnityEngine;
 
 namespace AlienArenas.Game.Player
 {
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : MonoBehaviour,IHealth
     {
         [SerializeField] private int _maxHp;
         [SerializeField] private float[] _hitForce;

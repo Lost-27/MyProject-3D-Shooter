@@ -1,6 +1,3 @@
-using AlienArenas.Game.Cam;
-using AlienArenas.Game.Enemy;
-using AlienArenas.Game.Objects;
 using UnityEngine;
 
 namespace AlienArenas.Game.Player

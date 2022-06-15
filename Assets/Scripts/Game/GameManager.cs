@@ -22,7 +22,6 @@ namespace AlienArenas.Game
         public int aliensPerSpawn;
         public GameObject upgradePrefab;
         public GameObject deathFloor;
-        public Gun gun;
         public float upgradeMaxTimeSpawn = 7.5f;
 
         private int _aliensOnScreen;
@@ -56,8 +55,6 @@ namespace AlienArenas.Game
                     GameObject spawnLocation = _spawnPoints[randomNumber];
                     // 3
                     GameObject upgrade = Instantiate(upgradePrefab);
-                    Upgrade upgradeScript = upgrade.GetComponent<Upgrade>();
-                    upgradeScript.gun = gun;
                     upgrade.transform.position = spawnLocation.transform.position;
                     // 4
                     _spawnedUpgrade = true;
@@ -105,11 +102,12 @@ namespace AlienArenas.Game
                             GameObject newAlienBeetle = Instantiate(_alienBeetle);
                             newAlienBeetle.transform.position = spawnLocation.transform.position;
                             AlienBeetle alienBeetle = newAlienBeetle.GetComponent<AlienBeetle>();
+                            EnemyDeath enemyDeath = newAlienBeetle.GetComponent<EnemyDeath>();
                             alienBeetle._target = _player.transform;
                             Vector3 targetRotation = new Vector3(_player.transform.position.x, newAlienBeetle.transform.position.y, _player.transform.position.z);
                             newAlienBeetle.transform.LookAt(targetRotation);
-                            alienBeetle.OnDestroy.AddListener(AlienDestroyed);
-                            alienBeetle.GetDeathParticles().SetDeathFloor(deathFloor);
+                            enemyDeath.OnDestroy.AddListener(AlienDestroyed);
+                            enemyDeath.GetDeathParticles().SetDeathFloor(deathFloor);
                         }
                     }
                 }

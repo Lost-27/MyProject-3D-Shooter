@@ -1,77 +1,76 @@
+using System.Collections;
 using UnityEngine;
 
 namespace AlienArenas.Game.Objects
 {
     public class Gun : MonoBehaviour
     {
-        public GameObject bulletPrefab;
-        public Transform launchPosition;
-        public bool isUpgraded;
-        public float upgradeTime = 10.0f;
+        [SerializeField] private GameObject _bulletPrefab;
+        [SerializeField] private Transform _launchPoint;
+        [SerializeField] private float _shootDelay = 0.1f;
+        [SerializeField] private float _upgradeTime = 10.0f;
 
-        private float _currentTime;
+        private bool _isUpgraded;
         private AudioSource _audioSource;
+        private IEnumerator _fireRoutine;
 
         private void Start()
         {
             _audioSource = GetComponent<AudioSource>();
         }
 
-        private void Update()
-        {
-            if (UnityEngine.Input.GetMouseButtonDown(0))
-            {
-                if (!IsInvoking(nameof(FireBullet)))
-                {
-                    InvokeRepeating(nameof(FireBullet), 0f, 0.1f);
-                }
-            }
-
-            if (UnityEngine.Input.GetMouseButtonUp(0))
-            {
-                CancelInvoke(nameof(FireBullet));
-            }
-
-            _currentTime += Time.deltaTime;
-            if (_currentTime > upgradeTime && isUpgraded)
-            {
-                isUpgraded = false;
-            }
-        }
-
         public void UpgradeGun()
         {
-            isUpgraded = true;
-            _currentTime = 0;
+            StartCoroutine(UpgradeActionTime());
         }
 
-        private void FireBullet()
+        public void BeginShooting()
+        {
+            _fireRoutine = RepeatShooting();
+            StartCoroutine(_fireRoutine);
+        }
+
+        public void StopShooting()
+        {
+            StopCoroutine(_fireRoutine);
+        }
+
+        private IEnumerator RepeatShooting()
+        {
+            while (true)
+            {
+                Shoot();
+                yield return new WaitForSeconds(_shootDelay);
+            }
+        }
+
+        private IEnumerator UpgradeActionTime()
+        {
+            _isUpgraded = true;
+            yield return new WaitForSeconds(_upgradeTime);
+            _isUpgraded = false;
+        }
+
+        private void Shoot()
         {
             Rigidbody bullet = СreateBullet();
             bullet.velocity = transform.parent.forward * 100;
 
-            if (isUpgraded)
+            if (_isUpgraded)
             {
                 Rigidbody bullet2 = СreateBullet();
                 bullet2.velocity = (transform.right + transform.forward / 0.5f) * 50;
                 Rigidbody bullet3 = СreateBullet();
                 bullet3.velocity = ((transform.right * -1) + transform.forward / 0.5f) * 50;
-            }
-
-            if (isUpgraded)
-            {
                 _audioSource.PlayOneShot(SoundManager.Instance.upgradedGunFire);
             }
-            else
-            {
-                _audioSource.PlayOneShot(SoundManager.Instance.gunFire);
-            }
+
+            _audioSource.PlayOneShot(SoundManager.Instance.gunFire);
         }
 
         private Rigidbody СreateBullet()
         {
-            GameObject bullet = Instantiate(bulletPrefab);
-            bullet.transform.position = launchPosition.position;
+            GameObject bullet = Instantiate(_bulletPrefab, _launchPoint.position, _launchPoint.rotation);
             return bullet.GetComponent<Rigidbody>();
         }
     }

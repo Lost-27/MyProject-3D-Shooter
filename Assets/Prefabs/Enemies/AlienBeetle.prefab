@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8020547314464810363}
   - component: {fileID: 3451711209526788641}
   - component: {fileID: 6512784044681766910}
+  - component: {fileID: 5392953512608609615}
   m_Layer: 6
   m_Name: AlienBeetle
   m_TagString: Untagged
@@ -103,14 +104,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
-  OnDestroy:
-    m_PersistentCalls:
-      m_Calls: []
   isAlive: 1
-  _headRb: {fileID: 5486452539998110537}
-  _deathParticles: {fileID: 0}
+  _enemyDeath: {fileID: 5392953512608609615}
   _agent: {fileID: 8020547314464810363}
-  _navigationUpdate: 0
+  _navigationUpdate: 0.5
 --- !u!114 &6512784044681766910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,6 +121,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 1
+--- !u!114 &5392953512608609615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602123646582263760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255f02e0dd9e48589a638df71fa4adce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _headRb: {fileID: 5486452539998110537}
+  _deathParticles: {fileID: 4819170000181610231}
+  OnDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  isAlive: 1
 --- !u!1001 &837053273
 PrefabInstance:
   m_ObjectHideFlags: 0

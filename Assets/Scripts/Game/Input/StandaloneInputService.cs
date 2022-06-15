@@ -28,6 +28,8 @@ namespace AlienArenas.Game.Input
             }
         }
 
+        public bool IsButtonAttackDown => !_isLocked && Input.GetButtonDown("Fire1");
+        public bool IsButtonAttackUp => !_isLocked && Input.GetButtonUp("Fire1");
 
         public void SetLocked(bool isLocked) =>
             _isLocked = isLocked;
