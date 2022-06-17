@@ -15,11 +15,11 @@ namespace AlienArenas.Game
         [SerializeField] private GameObject _alienBeetle;
         [SerializeField] private Animator _arenaAnimator;
 
-        public int maxAliensOnScreen;
-        public int totalAliens;
-        public float minSpawnTime;
-        public float maxSpawnTime;
-        public int aliensPerSpawn;
+        public int MaxAliensOnScreen;
+        public int TotalAliens;
+        public float MinSpawnTime;
+        public float MaxSpawnTime;
+        public int AliensPerSpawn;
         public GameObject upgradePrefab;
         public GameObject deathFloor;
         public float upgradeMaxTimeSpawn = 7.5f;
@@ -44,9 +44,11 @@ namespace AlienArenas.Game
                 return;
             }
             _currentUpgradeTime += Time.deltaTime;
-            _currentSpawnTime += Time.deltaTime;
+            
+            
             if (_currentUpgradeTime > _actualUpgradeTime)
             {
+                _currentUpgradeTime = 0;
                 // 1
                 if (!_spawnedUpgrade)
                 {
@@ -62,25 +64,32 @@ namespace AlienArenas.Game
                 }
             }
 
+            SpawnerEnemies();
+        }
+
+        private void SpawnerEnemies()
+        {
+            _currentSpawnTime += Time.deltaTime;
+            
             if (_currentSpawnTime > _generatedSpawnTime)
             {
                 _currentSpawnTime = 0;
-                _generatedSpawnTime = Random.Range(minSpawnTime, maxSpawnTime);
+                _generatedSpawnTime = Random.Range(MinSpawnTime, MaxSpawnTime);
 
-                if (aliensPerSpawn > 0 && _aliensOnScreen < totalAliens)
+                if (AliensPerSpawn > 0 && _aliensOnScreen < TotalAliens)
                 {
                     List<int> previousSpawnLocations = new List<int>();
 
-                    if (aliensPerSpawn > _spawnPoints.Length)
+                    if (AliensPerSpawn > _spawnPoints.Length)
                     {
-                        aliensPerSpawn = _spawnPoints.Length - 1;
+                        AliensPerSpawn = _spawnPoints.Length - 1;
                     }
 
-                    aliensPerSpawn = (aliensPerSpawn > totalAliens) ? aliensPerSpawn - totalAliens : aliensPerSpawn;
+                    AliensPerSpawn = (AliensPerSpawn > TotalAliens) ? AliensPerSpawn - TotalAliens : AliensPerSpawn;
 
-                    for (int i = 0; i < aliensPerSpawn; i++)
+                    for (int i = 0; i < AliensPerSpawn; i++)
                     {
-                        if (_aliensOnScreen < maxAliensOnScreen)
+                        if (_aliensOnScreen < MaxAliensOnScreen)
                         {
                             _aliensOnScreen += 1;
                             // 1
@@ -104,7 +113,8 @@ namespace AlienArenas.Game
                             AlienBeetle alienBeetle = newAlienBeetle.GetComponent<AlienBeetle>();
                             EnemyDeath enemyDeath = newAlienBeetle.GetComponent<EnemyDeath>();
                             alienBeetle._target = _player.transform;
-                            Vector3 targetRotation = new Vector3(_player.transform.position.x, newAlienBeetle.transform.position.y, _player.transform.position.z);
+                            Vector3 targetRotation = new Vector3(_player.transform.position.x,
+                                newAlienBeetle.transform.position.y, _player.transform.position.z);
                             newAlienBeetle.transform.LookAt(targetRotation);
                             enemyDeath.OnDestroy.AddListener(AlienDestroyed);
                             enemyDeath.GetDeathParticles().SetDeathFloor(deathFloor);
@@ -113,13 +123,13 @@ namespace AlienArenas.Game
                 }
             }
         }
-    
+
         private void AlienDestroyed()
         {
             _aliensOnScreen -= 1;
-            totalAliens -= 1;
+            TotalAliens -= 1;
         
-            if (totalAliens == 0)
+            if (TotalAliens == 0)
             {
                 Invoke(nameof(EndGame), 2.0f);
             }
