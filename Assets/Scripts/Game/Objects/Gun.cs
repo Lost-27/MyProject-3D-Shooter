@@ -7,6 +7,7 @@ namespace AlienArenas.Game.Objects
     {
         [SerializeField] private GameObject _bulletPrefab;
         [SerializeField] private Transform _launchPoint;
+        [SerializeField] private ParticleSystem _muzzleFlash;
         [SerializeField] private float _shootDelay = 0.1f;
         [SerializeField] private float _upgradeTime = 10.0f;
 
@@ -65,6 +66,7 @@ namespace AlienArenas.Game.Objects
                 _audioSource.PlayOneShot(SoundManager.Instance.upgradedGunFire);
             }
 
+            _muzzleFlash.Play();
             _audioSource.PlayOneShot(SoundManager.Instance.gunFire);
         }
 
