@@ -1,3 +1,4 @@
+using System;
 using AlienArenas.Game.Objects;
 using UnityEngine;
 
@@ -9,8 +10,8 @@ namespace AlienArenas.Game.Player
         [SerializeField] private PlayerHealth _playerHealth;
         [SerializeField] private Rigidbody _headRb;
         [SerializeField] private Rigidbody _bodyRb;
-
         [SerializeField] private DeathParticles _deathParticles;
+        public event Action OnDeath;
         public bool IsPlayerDeath { get; private set; }
 
         private void OnEnable()
@@ -44,6 +45,8 @@ namespace AlienArenas.Game.Player
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.marineDeath);
             _deathParticles.Activate();
             Destroy(gameObject);
+            
+            OnDeath?.Invoke();
         }
     }
 }

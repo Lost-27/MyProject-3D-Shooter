@@ -6,14 +6,16 @@ using UnityEngine;
 
 namespace AlienArenas.Game.Player
 {
-    public class PlayerHealth : MonoBehaviour,IHealth
+    public class PlayerHealth : MonoBehaviour, IHealth
     {
         [SerializeField] private int _maxHp;
         [SerializeField] private float[] _hitForce;
+        [SerializeField] private PlayerDelayHit _playerDelayHit;
+
 
         private bool _isDead;
         private Camera _camera;
-        
+
         public event Action OnChanged;
         public int CurrentHp { get; private set; }
 
@@ -26,6 +28,9 @@ namespace AlienArenas.Game.Player
         public void TakeDamage(int damage)
         {
             if (CurrentHp < 1)
+                return;
+
+            if (_playerDelayHit.IsInvincible)
                 return;
 
             CurrentHp -= damage;

@@ -13,11 +13,12 @@ GameObject:
   - component: {fileID: 5447357473980626097}
   - component: {fileID: 8020547314464810363}
   - component: {fileID: 3451711209526788641}
+  - component: {fileID: 4482724486854429916}
   - component: {fileID: 6512784044681766910}
   - component: {fileID: 5392953512608609615}
   m_Layer: 6
   m_Name: AlienBeetle
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,9 +106,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _target: {fileID: 0}
   isAlive: 1
-  _enemyDeath: {fileID: 5392953512608609615}
   _agent: {fileID: 8020547314464810363}
   _navigationUpdate: 0.5
+--- !u!114 &4482724486854429916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602123646582263760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb77e1d8e9d3bb74ea0144efa56ed600, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHp: 3
 --- !u!114 &6512784044681766910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,8 +147,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _headRb: {fileID: 5486452539998110537}
-  _deathParticles: {fileID: 4819170000181610231}
-  OnDestroy:
+  _deathParticles: {fileID: 4819170000985075118}
+  OnDeath:
     m_PersistentCalls:
       m_Calls: []
   isAlive: 1
@@ -146,6 +159,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4896892168443478407}
     m_Modifications:
+    - target: {fileID: 1000012463756004, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1000012463756004, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
       propertyPath: m_Name
       value: AlienDeathParticles
@@ -194,40 +211,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198000011982057188, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
-      propertyPath: CollisionModule.m_Planes.Array.size
+    - target: {fileID: 4819170000181610231, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
+      propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
---- !u!1 &1000013245725117 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000012463756004, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
-  m_PrefabInstance: {fileID: 837053273}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4819170000181610231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000013245725117}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d84d9631836e2c4ea9a0eeb9c2d7465, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _deathParticles: {fileID: 198000011153425853}
 --- !u!4 &4000012932632385 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000013169861656, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
   m_PrefabInstance: {fileID: 837053273}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &198000011153425853 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198000011982057188, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
+--- !u!114 &4819170000985075118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4819170000181610231, guid: 81ee2dd3cdadcf64a8e5b8815810c463, type: 3}
   m_PrefabInstance: {fileID: 837053273}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d84d9631836e2c4ea9a0eeb9c2d7465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1201433807701353120
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,16 +9,12 @@ namespace AlienArenas.Game.Enemy
 
         private void OnTriggerEnter(Collider other)
         {
-            PlayerHealth playerHealth = other.gameObject.GetComponent<PlayerHealth>();
-            PlayerDelayHit playerDelayHit = other.gameObject.GetComponent<PlayerDelayHit>();
-            
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+
             if (playerHealth == null)
                 return;
             
-            if (!playerDelayHit.IsHit)
-            {
-                playerHealth.TakeDamage(_damage);
-            }
+            playerHealth.TakeDamage(_damage);
         }
     }
 }

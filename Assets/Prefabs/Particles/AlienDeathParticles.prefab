@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 4000013169861656}
   - component: {fileID: 199000010120503928}
   - component: {fileID: 198000011982057188}
+  - component: {fileID: 4819170000181610231}
   m_Layer: 14
   m_Name: AlienDeathParticles
   m_TagString: Untagged
-  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -3694,7 +3695,6 @@ ParticleSystem:
     multiplyColliderForceByCollisionAngle: 1
     m_Planes:
     - {fileID: 0}
-    - {fileID: 0}
     m_Dampen:
       serializedVersion: 2
       minMaxState: 0
@@ -4820,3 +4820,16 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!114 &4819170000181610231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012463756004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d84d9631836e2c4ea9a0eeb9c2d7465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _deathParticles: {fileID: 198000011982057188}

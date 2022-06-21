@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -7,11 +8,31 @@ namespace AlienArenas.Game.Enemy
     {
         [SerializeField] private Rigidbody _headRb;
         [SerializeField] private DeathParticles _deathParticles;
-        public UnityEvent OnDestroy;
+        public UnityEvent OnDeath;
         public bool isAlive = true;
 
+        private EnemyHealth _enemyHealth;
 
-        public void Die()
+        private void Awake()
+        {
+            _enemyHealth = GetComponent<EnemyHealth>();
+            _enemyHealth.OnChanged += HealthChanged;
+        }
+
+        private void OnDestroy()
+        {
+            _enemyHealth.OnChanged -= HealthChanged;
+        }
+
+        private void HealthChanged()
+        {
+            if (_enemyHealth.CurrentHp > 0)
+                return;
+
+            Die();
+        }
+
+        private void Die()
         {
             isAlive = false;
             _headRb.GetComponent<Animator>().enabled = false;
@@ -20,8 +41,8 @@ namespace AlienArenas.Game.Enemy
             _headRb.GetComponent<SphereCollider>().enabled = true;
             _headRb.gameObject.transform.parent = null;
             _headRb.velocity = new Vector3(0, 26.0f, 3.0f);
-            OnDestroy.Invoke();
-            OnDestroy.RemoveAllListeners();
+            OnDeath.Invoke();
+            OnDeath.RemoveAllListeners();
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.alienDeath);
             _headRb.GetComponent<SelfDestruct>().Initiate();
             if (_deathParticles)

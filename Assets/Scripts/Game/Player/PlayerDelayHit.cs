@@ -8,7 +8,7 @@ namespace AlienArenas.Game.Player
         [SerializeField] private float _timeBetweenHits = 2.5f;
         [SerializeField] private PlayerHealth _playerHealth;
 
-        public bool IsHit { get; private set; }
+        public bool IsInvincible { get; private set; }
 
 
         private void OnEnable()
@@ -28,9 +28,9 @@ namespace AlienArenas.Game.Player
 
         private IEnumerator Timer()
         {
-            IsHit = true;
+            IsInvincible = true;
             yield return new WaitForSeconds(_timeBetweenHits);
-            IsHit = false;
+            IsInvincible = false;
         }
     }
 }

@@ -8,9 +8,6 @@ namespace AlienArenas.Game.Enemy
         public Transform _target;
         public bool isAlive = true;
 
-        [Header("Setting death")] 
-        [SerializeField] private EnemyDeath _enemyDeath;
-
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private float _navigationUpdate;
 
@@ -29,14 +26,6 @@ namespace AlienArenas.Game.Enemy
                         _navigationTime = 0;
                     }
                 }
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (isAlive)
-            {
-                _enemyDeath.Die();
             }
         }
     }

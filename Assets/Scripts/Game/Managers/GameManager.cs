@@ -9,7 +9,7 @@ namespace AlienArenas.Game
     public class GameManager : MonoBehaviour
     {
         private static readonly int PlayerWon = Animator.StringToHash("PlayerWon");
-    
+
         [SerializeField] private GameObject _player;
         [SerializeField] private GameObject[] _spawnPoints;
         [SerializeField] private GameObject _alienBeetle;
@@ -43,9 +43,10 @@ namespace AlienArenas.Game
             {
                 return;
             }
+
             _currentUpgradeTime += Time.deltaTime;
-            
-            
+
+
             if (_currentUpgradeTime > _actualUpgradeTime)
             {
                 _currentUpgradeTime = 0;
@@ -70,7 +71,7 @@ namespace AlienArenas.Game
         private void SpawnerEnemies()
         {
             _currentSpawnTime += Time.deltaTime;
-            
+
             if (_currentSpawnTime > _generatedSpawnTime)
             {
                 _currentSpawnTime = 0;
@@ -110,13 +111,15 @@ namespace AlienArenas.Game
                             GameObject spawnLocation = _spawnPoints[spawnPoint];
                             GameObject newAlienBeetle = Instantiate(_alienBeetle);
                             newAlienBeetle.transform.position = spawnLocation.transform.position;
+
                             AlienBeetle alienBeetle = newAlienBeetle.GetComponent<AlienBeetle>();
-                            EnemyDeath enemyDeath = newAlienBeetle.GetComponent<EnemyDeath>();
                             alienBeetle._target = _player.transform;
                             Vector3 targetRotation = new Vector3(_player.transform.position.x,
                                 newAlienBeetle.transform.position.y, _player.transform.position.z);
                             newAlienBeetle.transform.LookAt(targetRotation);
-                            enemyDeath.OnDestroy.AddListener(AlienDestroyed);
+
+                            EnemyDeath enemyDeath = newAlienBeetle.GetComponent<EnemyDeath>();
+                            enemyDeath.OnDeath.AddListener(AlienDestroyed);
                             enemyDeath.GetDeathParticles().SetDeathFloor(deathFloor);
                         }
                     }
@@ -128,12 +131,13 @@ namespace AlienArenas.Game
         {
             _aliensOnScreen -= 1;
             TotalAliens -= 1;
-        
+
             if (TotalAliens == 0)
             {
                 Invoke(nameof(EndGame), 2.0f);
             }
         }
+
         private void EndGame()
         {
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.elevatorArrived);
