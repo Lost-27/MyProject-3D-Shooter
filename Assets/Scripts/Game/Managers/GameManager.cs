@@ -1,40 +1,47 @@
+using System.Collections;
 using System.Collections.Generic;
 using AlienArenas.Game.Enemy;
-using AlienArenas.Game.Objects;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace AlienArenas.Game
+namespace AlienArenas.Game.Managers
 {
     public class GameManager : MonoBehaviour
     {
         private static readonly int PlayerWon = Animator.StringToHash("PlayerWon");
 
         [SerializeField] private GameObject _player;
-        [SerializeField] private GameObject[] _spawnPoints;
         [SerializeField] private GameObject _alienBeetle;
+        [SerializeField] private GameObject[] _spawnPoints;
         [SerializeField] private Animator _arenaAnimator;
 
+        [Header("Pickup settings")] 
+        [SerializeField] private GameObject[] _pickupPrefab;
+        [SerializeField] private float _pickupMaxTimeSpawn = 7.5f;
+
+        [Range(0f, 100f)] 
+        [SerializeField] private float _pickupChance;
+
+        [Header("Enemy spawn settings")] 
         public int MaxAliensOnScreen;
         public int TotalAliens;
         public float MinSpawnTime;
         public float MaxSpawnTime;
         public int AliensPerSpawn;
-        public GameObject upgradePrefab;
         public GameObject deathFloor;
-        public float upgradeMaxTimeSpawn = 7.5f;
 
         private int _aliensOnScreen;
         private float _generatedSpawnTime;
         private float _currentSpawnTime;
-        private bool _spawnedUpgrade;
-        private float _actualUpgradeTime;
-        private float _currentUpgradeTime;
+        
+        private float _actualPickupTime;
+        private IEnumerator _pickupSpawnRoutine;
+        
 
         private void Start()
         {
-            _actualUpgradeTime = Random.Range(upgradeMaxTimeSpawn - 3.0f, upgradeMaxTimeSpawn);
-            _actualUpgradeTime = Mathf.Abs(_actualUpgradeTime);
+            _pickupSpawnRoutine = RepeatPickupSpawn();
+            StartCoroutine(_pickupSpawnRoutine);
         }
 
         private void Update()
@@ -44,28 +51,22 @@ namespace AlienArenas.Game
                 return;
             }
 
-            _currentUpgradeTime += Time.deltaTime;
-
-
-            if (_currentUpgradeTime > _actualUpgradeTime)
-            {
-                _currentUpgradeTime = 0;
-                // 1
-                if (!_spawnedUpgrade)
-                {
-                    // 2
-                    int randomNumber = Random.Range(0, _spawnPoints.Length - 1);
-                    GameObject spawnLocation = _spawnPoints[randomNumber];
-                    // 3
-                    GameObject upgrade = Instantiate(upgradePrefab);
-                    upgrade.transform.position = spawnLocation.transform.position;
-                    // 4
-                    _spawnedUpgrade = true;
-                    SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpAppear);
-                }
-            }
-
             SpawnerEnemies();
+        }
+
+        private IEnumerator RepeatPickupSpawn()
+        {
+            while (true)
+            {
+                _actualPickupTime = Random.Range(_pickupMaxTimeSpawn - 3.0f, _pickupMaxTimeSpawn);
+                _actualPickupTime = Mathf.Abs(_actualPickupTime);
+                
+                yield return new WaitForSeconds(_actualPickupTime);
+
+                GameObject spawnLocation = GetRandomSpawnLocation();
+
+                CreatePickupIfNeeded(spawnLocation.transform.position);
+            }
         }
 
         private void SpawnerEnemies()
@@ -114,8 +115,9 @@ namespace AlienArenas.Game
 
                             AlienBeetle alienBeetle = newAlienBeetle.GetComponent<AlienBeetle>();
                             alienBeetle._target = _player.transform;
-                            Vector3 targetRotation = new Vector3(_player.transform.position.x,
-                                newAlienBeetle.transform.position.y, _player.transform.position.z);
+                            var position = _player.transform.position;
+                            var targetRotation = new Vector3(position.x, newAlienBeetle.transform.position.y,
+                                position.z);
                             newAlienBeetle.transform.LookAt(targetRotation);
 
                             EnemyDeath enemyDeath = newAlienBeetle.GetComponent<EnemyDeath>();
@@ -134,6 +136,7 @@ namespace AlienArenas.Game
 
             if (TotalAliens == 0)
             {
+                StopCoroutine(_pickupSpawnRoutine);
                 Invoke(nameof(EndGame), 2.0f);
             }
         }
@@ -142,6 +145,31 @@ namespace AlienArenas.Game
         {
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.elevatorArrived);
             _arenaAnimator.SetTrigger(PlayerWon);
+        }
+
+        private void CreatePickupIfNeeded(Vector3 spawnPointPosition)
+        {
+            float randomChance = Random.Range(1f, 100f);
+
+            if (!(_pickupChance > randomChance))
+                return;
+
+            Instantiate(GetRandomPickup(), spawnPointPosition, Quaternion.identity);
+            SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpAppear);
+        }
+        
+
+        private GameObject GetRandomPickup()
+        {
+            int randomIndex = Random.Range(0, _pickupPrefab.Length);
+            return _pickupPrefab[randomIndex];
+        }
+        
+
+        private GameObject GetRandomSpawnLocation()
+        {
+            int randomNumber = Random.Range(0, _spawnPoints.Length);
+            return _spawnPoints[randomNumber];
         }
     }
 }

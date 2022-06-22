@@ -1,13 +1,14 @@
 using UnityEngine;
 
-namespace AlienArenas.Game.Objects
+namespace AlienArenas.Game.Objects.Pickup
 {
-    public class Upgrade : MonoBehaviour
+    public class PickupTripleBullet : MonoBehaviour
     {
+        [SerializeField] private float _activeTime = 10.0f;
         private void OnTriggerEnter(Collider other)
         {
             Gun gun = other.GetComponentInChildren<Gun>();
-            gun.UpgradeGun();
+            gun.UpgradeGun(_activeTime);
             Destroy(gameObject);
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpPickup);
         }

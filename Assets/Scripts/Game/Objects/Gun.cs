@@ -8,8 +8,7 @@ namespace AlienArenas.Game.Objects
         [SerializeField] private GameObject _bulletPrefab;
         [SerializeField] private Transform _launchPoint;
         [SerializeField] private ParticleSystem _muzzleFlash;
-        [SerializeField] private float _shootDelay = 0.1f;
-        [SerializeField] private float _upgradeTime = 10.0f;
+        [SerializeField] private float _shootDelay = 0.1f;        
 
         private bool _isUpgraded;
         private AudioSource _audioSource;
@@ -20,9 +19,9 @@ namespace AlienArenas.Game.Objects
             _audioSource = GetComponent<AudioSource>();
         }
 
-        public void UpgradeGun()
+        public void UpgradeGun(float activeTime)
         {
-            StartCoroutine(UpgradeActionTime());
+            StartCoroutine(UpgradeActionTime(activeTime));
         }
 
         public void BeginShooting()
@@ -45,10 +44,10 @@ namespace AlienArenas.Game.Objects
             }
         }
 
-        private IEnumerator UpgradeActionTime()
+        private IEnumerator UpgradeActionTime(float activeTime)
         {
             _isUpgraded = true;
-            yield return new WaitForSeconds(_upgradeTime);
+            yield return new WaitForSeconds(activeTime);
             _isUpgraded = false;
         }
 

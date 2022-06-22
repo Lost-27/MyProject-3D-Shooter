@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 5397565779430111799}
   - component: {fileID: 5397565779419176265}
   - component: {fileID: 5397565779425395793}
-  - component: {fileID: 3903270495251956712}
+  - component: {fileID: 3258150138316132405}
   m_Layer: 14
-  m_Name: Pickup
+  m_Name: Pickup_TripleBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ CapsuleCollider:
   m_Height: 7
   m_Direction: 1
   m_Center: {x: 0, y: 5, z: 0}
---- !u!114 &3903270495251956712
+--- !u!114 &3258150138316132405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5397565779430006379}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e4073eb40467834dbeef003eeb46cd1, type: 3}
+  m_Script: {fileID: 11500000, guid: 4193323a11cd5444b98006b96a52bca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2623304039567342709

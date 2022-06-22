@@ -12,7 +12,6 @@ namespace AlienArenas.Game.Player
         [SerializeField] private float[] _hitForce;
         [SerializeField] private PlayerDelayHit _playerDelayHit;
 
-
         private bool _isDead;
         private Camera _camera;
 
@@ -39,6 +38,17 @@ namespace AlienArenas.Game.Player
             cameraShake.intensity = _hitForce[CurrentHp];
             cameraShake.Shake();
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.hurt);
+
+            OnChanged?.Invoke();
+        }
+
+        public void AddHP(int healthPoints)
+        {
+            if (CurrentHp >= _maxHp)
+                return;
+
+            CurrentHp += healthPoints;
+            CurrentHp = Mathf.Min(CurrentHp, _maxHp);
 
             OnChanged?.Invoke();
         }
