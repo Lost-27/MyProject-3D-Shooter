@@ -38,7 +38,7 @@ namespace AlienArenas.Game.Player
             _bodyRb.isKinematic = false;
             _bodyRb.useGravity = true;
             _bodyRb.gameObject.GetComponent<CapsuleCollider>().enabled = true;
-            _bodyRb.gameObject.GetComponent<Gun>().enabled = false;
+            _bodyRb.gameObject.GetComponent<Gun>().StopShooting();
             Destroy(_headRb.gameObject.GetComponent<HingeJoint>());
             _headRb.transform.parent = null;
             _headRb.useGravity = true;

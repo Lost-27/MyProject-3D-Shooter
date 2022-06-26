@@ -10,19 +10,19 @@ namespace AlienArenas.Game.Managers
     {
         private static readonly int PlayerWon = Animator.StringToHash("PlayerWon");
 
-        [SerializeField] private GameObject _player;
-        [SerializeField] private GameObject _alienBeetle;
+        [SerializeField] private GameObject _player;        
+        [SerializeField] private GameObject[] _enemyPrefab;
         [SerializeField] private GameObject[] _spawnPoints;
         [SerializeField] private Animator _arenaAnimator;
 
-        [Header("Pickup settings")] 
+        [Header("Pickup settings")]
         [SerializeField] private GameObject[] _pickupPrefab;
         [SerializeField] private float _pickupMaxTimeSpawn = 7.5f;
 
-        [Range(0f, 100f)] 
+        [Range(0f, 100f)]
         [SerializeField] private float _pickupChance;
 
-        [Header("Enemy spawn settings")] 
+        [Header("Enemy spawn settings")]
         public int MaxAliensOnScreen;
         public int TotalAliens;
         public float MinSpawnTime;
@@ -33,10 +33,11 @@ namespace AlienArenas.Game.Managers
         private int _aliensOnScreen;
         private float _generatedSpawnTime;
         private float _currentSpawnTime;
-        
+
         private float _actualPickupTime;
         private IEnumerator _pickupSpawnRoutine;
-        
+
+        private List<int> previousSpawnLocations;
 
         private void Start()
         {
@@ -60,7 +61,7 @@ namespace AlienArenas.Game.Managers
             {
                 _actualPickupTime = Random.Range(_pickupMaxTimeSpawn - 3.0f, _pickupMaxTimeSpawn);
                 _actualPickupTime = Mathf.Abs(_actualPickupTime);
-                
+
                 yield return new WaitForSeconds(_actualPickupTime);
 
                 GameObject spawnLocation = GetRandomSpawnLocation();
@@ -80,7 +81,7 @@ namespace AlienArenas.Game.Managers
 
                 if (AliensPerSpawn > 0 && _aliensOnScreen < TotalAliens)
                 {
-                    List<int> previousSpawnLocations = new List<int>();
+                    previousSpawnLocations = new List<int>();
 
                     if (AliensPerSpawn > _spawnPoints.Length)
                     {
@@ -94,24 +95,24 @@ namespace AlienArenas.Game.Managers
                         if (_aliensOnScreen < MaxAliensOnScreen)
                         {
                             _aliensOnScreen += 1;
+
                             // 1
-                            int spawnPoint = -1;
-                            // 2
-                            while (spawnPoint == -1)
+                            int index = -1;
+
+                            while (index == -1)
                             {
-                                // 3
-                                int randomNumber = Random.Range(0, _spawnPoints.Length - 1);
-                                // 4
+                                int randomNumber = Random.Range(0, _spawnPoints.Length);
+
                                 if (!previousSpawnLocations.Contains(randomNumber))
                                 {
                                     previousSpawnLocations.Add(randomNumber);
-                                    spawnPoint = randomNumber;
+                                    index = randomNumber;
                                 }
                             }
 
-                            GameObject spawnLocation = _spawnPoints[spawnPoint];
-                            GameObject newAlienBeetle = Instantiate(_alienBeetle);
-                            newAlienBeetle.transform.position = spawnLocation.transform.position;
+                            GameObject spawnLocation = _spawnPoints[index];
+                            GameObject newAlienBeetle = CreateEnemy(spawnLocation.transform.position);
+
 
                             AlienBeetle alienBeetle = newAlienBeetle.GetComponent<AlienBeetle>();
                             alienBeetle._target = _player.transform;
@@ -147,6 +148,15 @@ namespace AlienArenas.Game.Managers
             _arenaAnimator.SetTrigger(PlayerWon);
         }
 
+        private GameObject CreateEnemy(Vector3 spawnPointPosition) =>
+            Instantiate(GetRandomEnemy(), spawnPointPosition, Quaternion.identity);
+
+        private GameObject GetRandomEnemy()
+        {
+            int randomIndex = Random.Range(0, _enemyPrefab.Length);
+            return _enemyPrefab[randomIndex];
+        }
+
         private void CreatePickupIfNeeded(Vector3 spawnPointPosition)
         {
             float randomChance = Random.Range(1f, 100f);
@@ -157,19 +167,19 @@ namespace AlienArenas.Game.Managers
             Instantiate(GetRandomPickup(), spawnPointPosition, Quaternion.identity);
             SoundManager.Instance.PlayOneShot(SoundManager.Instance.powerUpAppear);
         }
-        
+
 
         private GameObject GetRandomPickup()
         {
             int randomIndex = Random.Range(0, _pickupPrefab.Length);
             return _pickupPrefab[randomIndex];
         }
-        
+
 
         private GameObject GetRandomSpawnLocation()
         {
-            int randomNumber = Random.Range(0, _spawnPoints.Length);
-            return _spawnPoints[randomNumber];
+            int randomIndex = Random.Range(0, _spawnPoints.Length);
+            return _spawnPoints[randomIndex];
         }
     }
 }

@@ -45,7 +45,12 @@ ModelImporter:
   - first:
       74: -4981579547253193638
     second: Kneepad|Idle
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main Texture
+    second: {fileID: 2100000, guid: c2f9a1f876908f54f8d7ffd19cf40b8c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

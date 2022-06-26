@@ -11,12 +11,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Main_Texture
-    second: {fileID: 2100000, guid: e7ba23a51703bbb40b91656184f4ceb1, type: 2}
+    second: {fileID: 2100000, guid: e9fa6c5dbe9db7a47b8d49cd7aa44038, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Main_Texture__Bobble_Wars_Marine_texture_psd
-    second: {fileID: 2100000, guid: e7ba23a51703bbb40b91656184f4ceb1, type: 2}
+    second: {fileID: 2100000, guid: e9fa6c5dbe9db7a47b8d49cd7aa44038, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
