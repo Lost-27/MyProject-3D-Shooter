@@ -38,17 +38,12 @@ namespace AlienArenas.Game.Managers
         private int _aliensOnScreen;
         private float _generatedSpawnTime;
         private float _currentSpawnTime;
-        private int _numbeEnemiesKilled;
-        private List<int> previousSpawnLocations;
+        private int _numberEnemiesKilled;
+        private List<int> _previousSpawnLocations;
         
         public int TotalAliens => _totalAliens;
 
-
-        private void Awake()
-        {
-            
-        }
-
+        
         private void Update()
         {
             if (_player == null)
@@ -71,7 +66,7 @@ namespace AlienArenas.Game.Managers
 
                 if (_aliensPerSpawn > 0 && _aliensOnScreen < _totalAliens)
                 {
-                    previousSpawnLocations = new List<int>();
+                    _previousSpawnLocations = new List<int>();
 
                     if (_aliensPerSpawn > _spawnPoints.Length)
                     {
@@ -106,9 +101,9 @@ namespace AlienArenas.Game.Managers
                             {
                                 int randomNumber = Random.Range(0, _spawnPoints.Length);
 
-                                if (!previousSpawnLocations.Contains(randomNumber))
+                                if (!_previousSpawnLocations.Contains(randomNumber))
                                 {
-                                    previousSpawnLocations.Add(randomNumber);
+                                    _previousSpawnLocations.Add(randomNumber);
                                     index = randomNumber;
                                 }
                             }
@@ -169,11 +164,11 @@ namespace AlienArenas.Game.Managers
 
         private void SpawnPickup()
         {
-            _numbeEnemiesKilled++;
+            _numberEnemiesKilled++;
 
-            if (_numbeEnemiesKilled == _maxEnemiesKilled)
+            if (_numberEnemiesKilled == _maxEnemiesKilled)
             {
-                _numbeEnemiesKilled = 0;
+                _numberEnemiesKilled = 0;
 
                 Transform spawnLocation = GetRandomSpawnLocation();
 

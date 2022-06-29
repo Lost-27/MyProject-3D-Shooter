@@ -18,7 +18,7 @@ namespace AlienArenas.Game.UI
         {
             _sceneLoader = sceneLoader;
         }
-        
+
 
         private void Awake()
         {
@@ -27,22 +27,22 @@ namespace AlienArenas.Game.UI
             _restartButton.onClick.AddListener(RestartButtonClicked);
             _menuButton.onClick.AddListener(MenuButtonClicked);
         }
+        
+
+        public void SetActive(bool isActive) =>
+            _innerContainer.SetActive(isActive);
+        
 
         private void MenuButtonClicked()
         {
             SoundManager.Instance.StopSoundBG();
             _sceneLoader.LoadSceneAsync(SceneName.Menu);
         }
+        
 
         private void RestartButtonClicked()
         {
             _sceneLoader.LoadSceneAsync(SceneName.Level1);
         }
-
-
-        public void SetActive(bool isActive) =>
-            _innerContainer.SetActive(isActive);
-
-        
     }
 }
