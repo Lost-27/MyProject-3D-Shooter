@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AlienArenas.Game.Enemy;
 using UnityEngine;
@@ -39,7 +40,14 @@ namespace AlienArenas.Game.Managers
         private float _currentSpawnTime;
         private int _numbeEnemiesKilled;
         private List<int> previousSpawnLocations;
+        
+        public int TotalAliens => _totalAliens;
 
+
+        private void Awake()
+        {
+            
+        }
 
         private void Update()
         {

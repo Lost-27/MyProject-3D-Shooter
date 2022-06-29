@@ -50,5 +50,10 @@ namespace AlienArenas.Game
         {
             _soundEffectAudio.PlayOneShot(clip);
         }
+        
+        public void StopSoundBG()
+        {
+            _soundEffectAudio.gameObject.GetComponent<AudioSource>().enabled = false;
+        }
     }
 }

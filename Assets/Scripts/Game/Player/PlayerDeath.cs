@@ -34,6 +34,7 @@ namespace AlienArenas.Game.Player
         private void Die()
         {
             IsPlayerDeath = true;
+            
             _bodyRb.transform.parent = null;
             _bodyRb.isKinematic = false;
             _bodyRb.useGravity = true;

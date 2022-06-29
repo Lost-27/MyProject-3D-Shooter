@@ -32,6 +32,9 @@ namespace AlienArenas.Game.Objects
 
         public void StopShooting()
         {
+            if (_fireRoutine == null)
+                return;
+            
             StopCoroutine(_fireRoutine);
         }
 

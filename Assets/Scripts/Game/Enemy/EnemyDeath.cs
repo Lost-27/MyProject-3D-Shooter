@@ -8,8 +8,9 @@ namespace AlienArenas.Game.Enemy
     {
         [SerializeField] private Rigidbody _headRb;
         [SerializeField] private DeathParticles _deathParticles;
+        [SerializeField] private EnemyPickupSpawner _enemyPickup;
         public UnityEvent OnDeath;
-        public bool isAlive = true;
+        
 
         private EnemyHealth _enemyHealth;
 
@@ -34,7 +35,6 @@ namespace AlienArenas.Game.Enemy
 
         private void Die()
         {
-            isAlive = false;
             _headRb.GetComponent<Animator>().enabled = false;
             _headRb.isKinematic = false;
             _headRb.useGravity = true;
@@ -50,6 +50,7 @@ namespace AlienArenas.Game.Enemy
                 _deathParticles.transform.parent = null;
                 _deathParticles.Activate();
             }
+            _enemyPickup.Spawn();
 
             Destroy(gameObject);
         }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4482724486854429916}
   - component: {fileID: 6512784044681766910}
   - component: {fileID: 5392953512608609615}
+  - component: {fileID: 5902528642851403655}
   m_Layer: 6
   m_Name: AlienBeetle
   m_TagString: Enemy
@@ -148,10 +149,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _headRb: {fileID: 5486452539998110537}
   _deathParticles: {fileID: 4819170000985075118}
+  _enemyPickup: {fileID: 5902528642851403655}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
-  isAlive: 1
+--- !u!114 &5902528642851403655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602123646582263760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca24b5d12cbd4ee47938cd1fbe46ab5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pickupPrefab:
+  - {fileID: 8419386556417772048, guid: e2fed2700f891b84cabc19b19cda9767, type: 3}
+  _pickupChance: 80
 --- !u!1001 &837053273
 PrefabInstance:
   m_ObjectHideFlags: 0

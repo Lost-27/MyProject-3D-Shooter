@@ -1,46 +1,48 @@
-using System;
+using AlienArenas.Infrastructure.SceneLoading;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace AlienArenas.Game.UI
 {
     public class DeathScreen : MonoBehaviour
     {
-        #region Variables
-
         [SerializeField] private GameObject _innerContainer;
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _menuButton;
 
-        #endregion
+        private ISceneLoader _sceneLoader;
 
-
-        #region Events
-
-        public static event Action OnRestartButtonClicked;
-        public static event Action OnMenuButtonClicked;
-
-        #endregion
-
-
-        #region Unity lifecycle
+        [Inject]
+        public void Construct(ISceneLoader sceneLoader)
+        {
+            _sceneLoader = sceneLoader;
+        }
+        
 
         private void Awake()
         {
             SetActive(false);
 
-            _restartButton.onClick.AddListener(() => OnRestartButtonClicked?.Invoke());
-            _menuButton.onClick.AddListener(() => OnMenuButtonClicked?.Invoke());
+            _restartButton.onClick.AddListener(RestartButtonClicked);
+            _menuButton.onClick.AddListener(MenuButtonClicked);
         }
 
-        #endregion
+        private void MenuButtonClicked()
+        {
+            SoundManager.Instance.StopSoundBG();
+            _sceneLoader.LoadSceneAsync(SceneName.Menu);
+        }
 
+        private void RestartButtonClicked()
+        {
+            _sceneLoader.LoadSceneAsync(SceneName.Level1);
+        }
 
-        #region Public methods
 
         public void SetActive(bool isActive) =>
             _innerContainer.SetActive(isActive);
 
-        #endregion
+        
     }
 }
