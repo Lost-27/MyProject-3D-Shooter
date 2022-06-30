@@ -13,7 +13,7 @@ namespace AlienArenas.Game.UI
 
         [Inject]
         public void Construct(ICurrencyService currencyService)
-        {            
+        {
             _currencyService = currencyService;
         }
 
@@ -21,17 +21,17 @@ namespace AlienArenas.Game.UI
         private void Start()
         {
             _currencyService.OnCurrencyChanged += UpdateScoreLabel;
-            UpdateScoreLabel(Currency.Diamonds, _currencyService.Count(Currency.Diamonds));            
+            UpdateScoreLabel(Currency.Diamonds, _currencyService.Count(Currency.Diamonds));
         }
 
 
         private void OnDestroy()
         {
-            _currencyService.OnCurrencyChanged -= UpdateScoreLabel;            
+            _currencyService.OnCurrencyChanged -= UpdateScoreLabel;
         }
 
 
-        private void UpdateScoreLabel(Currency currency, int count) => 
+        private void UpdateScoreLabel(Currency currency, int count) =>
             _dynamicDiamondLabel.text = count.ToString();
     }
 }

@@ -7,6 +7,7 @@ namespace AlienArenas.Game.UI
 {
     public class LevelVictoryScreen : MonoBehaviour
     {
+        public string NameScene;
         [SerializeField] private GameObject _innerContainer;
         [SerializeField] private Button _nextLevelButton;
         [SerializeField] private Button _restartButton;
@@ -37,7 +38,7 @@ namespace AlienArenas.Game.UI
 
         private void NextLevelButtonClicked()
         {
-            _sceneLoader.LoadSceneAsync(SceneName.Level1);
+            _sceneLoader.LoadSceneAsync(NameScene);
         }
         
 
@@ -50,7 +51,7 @@ namespace AlienArenas.Game.UI
 
         private void RestartButtonClicked()
         {
-            _sceneLoader.LoadSceneAsync(SceneName.Level1);
+            _sceneLoader.LoadSceneAsync(NameScene);
         }
     }
 }

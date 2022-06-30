@@ -8,7 +8,6 @@ namespace AlienArenas.Installers
         public override void InstallBindings()
         {
             CurrencyServiceInstaller.Install(Container);
-            //PauseServiceInstaller.Install(Container);
         }
     }
 }
