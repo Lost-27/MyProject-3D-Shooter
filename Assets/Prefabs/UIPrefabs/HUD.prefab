@@ -112,6 +112,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4455196207195812783}
     m_Modifications:
+    - target: {fileID: 2271409366820069787, guid: 918ebcc093e567b42af467f801a73ee2, type: 3}
+      propertyPath: NextScene
+      value: Level2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2271409366820069787, guid: 918ebcc093e567b42af467f801a73ee2, type: 3}
+      propertyPath: CurrenScene
+      value: Level1
+      objectReference: {fileID: 0}
     - target: {fileID: 7561621343471773088, guid: 918ebcc093e567b42af467f801a73ee2, type: 3}
       propertyPath: m_Name
       value: LevelVictoryScreen

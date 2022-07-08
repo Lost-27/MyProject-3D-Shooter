@@ -963,7 +963,7 @@ MonoBehaviour:
   _maxEnemiesKilled: 5
   _pickupChance: 100
   _maxAliensOnScreen: 10
-  _totalAliens: 35
+  _totalAliens: 10
   _minSpawnTime: 1
   _maxSpawnTime: 3
   _aliensPerSpawn: 9
@@ -3519,6 +3519,14 @@ PrefabInstance:
     - target: {fileID: 2055698062896771384, guid: b889b7707bab20543b5f6a97fd57e802, type: 3}
       propertyPath: NameScene
       value: EndGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055698062896771384, guid: b889b7707bab20543b5f6a97fd57e802, type: 3}
+      propertyPath: NextScene
+      value: EndGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055698062896771384, guid: b889b7707bab20543b5f6a97fd57e802, type: 3}
+      propertyPath: CurrenScene
+      value: Level3
       objectReference: {fileID: 0}
     - target: {fileID: 4455196207195812779, guid: b889b7707bab20543b5f6a97fd57e802, type: 3}
       propertyPath: m_Name

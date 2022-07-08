@@ -3515,6 +3515,14 @@ PrefabInstance:
       propertyPath: NameScene
       value: Level3
       objectReference: {fileID: 0}
+    - target: {fileID: 2055698062896771384, guid: b889b7707bab20543b5f6a97fd57e802, type: 3}
+      propertyPath: NextScene
+      value: Level3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2055698062896771384, guid: b889b7707bab20543b5f6a97fd57e802, type: 3}
+      propertyPath: CurrenScene
+      value: Level2
+      objectReference: {fileID: 0}
     - target: {fileID: 4455196207195812779, guid: b889b7707bab20543b5f6a97fd57e802, type: 3}
       propertyPath: m_Name
       value: HUD

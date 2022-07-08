@@ -1,3 +1,4 @@
+using System;
 using AlienArenas.Game;
 using AlienArenas.Infrastructure.SceneLoading;
 using UnityEngine;
@@ -6,9 +7,9 @@ using Zenject;
 
 namespace AlienArenas.MainMenu
 {
-    public class MainMenu : MonoBehaviour
+    public class EndGame : MonoBehaviour
     {
-        [SerializeField] private Button _playButton;
+        [SerializeField] private Button _menuButton;
         [SerializeField] private Button _quitButton;
 
         private ISceneLoader _sceneLoader;
@@ -22,15 +23,15 @@ namespace AlienArenas.MainMenu
 
         private void Awake()
         {
-            _playButton.onClick.AddListener(PlayButtonClicked);
+            _menuButton.onClick.AddListener(MenuButtonClicked);
             _quitButton.onClick.AddListener(QuitButtonClicked);
+            SoundManager.Instance.StopSoundBG();
         }
 
 
-        private void PlayButtonClicked()
+        private void MenuButtonClicked()
         {
-            SoundManager.Instance.StartSoundBG();
-            _sceneLoader.LoadSceneAsync(SceneName.Level1);
+            _sceneLoader.LoadSceneAsync(SceneName.Menu);
         }
 
 

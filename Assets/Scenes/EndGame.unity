@@ -132,10 +132,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 128362246}
-  - component: {fileID: 128362247}
+  - component: {fileID: 128362249}
   - component: {fileID: 128362248}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: EndMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,20 +164,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &128362247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 128362245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc51b7880593b1f48943344dbb8bf63f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playButton: {fileID: 672707736}
-  _quitButton: {fileID: 2046234987}
 --- !u!82 &128362248
 AudioSource:
   m_ObjectHideFlags: 0
@@ -274,6 +260,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &128362249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128362245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007c47e94a70f3f43ae5a6d0375e9d61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menuButton: {fileID: 672707736}
+  _quitButton: {fileID: 2046234987}
 --- !u!1 &145767177
 GameObject:
   m_ObjectHideFlags: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Play
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba62bccd3bc0142bc9a0bc1addeaadce, type: 2}
   m_sharedMaterial: {fileID: 21404399205216556, guid: ba62bccd3bc0142bc9a0bc1addeaadce, type: 2}
@@ -643,7 +643,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -42, y: 89}
+  m_AnchoredPosition: {x: -42, y: 240}
   m_SizeDelta: {x: -148.88, y: -835.96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &495661145
@@ -795,12 +795,12 @@ GameObject:
   - component: {fileID: 672707737}
   - component: {fileID: 672707736}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: MenuButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &672707735
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1056,7 +1056,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "End Game\n\u041F\u043E\u0431\u0435\u0434\u0430!"
+  m_text: 'End Game!
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea4179ba609564f33b822e1be581b321, type: 2}
   m_sharedMaterial: {fileID: 21605244428125924, guid: ea4179ba609564f33b822e1be581b321, type: 2}
@@ -1319,7 +1321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2046234986
 RectTransform:
   m_ObjectHideFlags: 0

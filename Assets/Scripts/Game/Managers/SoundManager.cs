@@ -36,6 +36,7 @@ namespace AlienArenas.Game
 
         private void Start()
         {
+            
             AudioSource[] sources = GetComponents<AudioSource>();
             foreach (AudioSource source in sources)
             {
@@ -44,6 +45,7 @@ namespace AlienArenas.Game
                     _soundEffectAudio = source;
                 }
             }
+            StopSoundBG();
         }
 
         public void PlayOneShot(AudioClip clip)
@@ -54,6 +56,11 @@ namespace AlienArenas.Game
         public void StopSoundBG()
         {
             _soundEffectAudio.gameObject.GetComponent<AudioSource>().enabled = false;
+        }
+        
+        public void StartSoundBG()
+        {
+            _soundEffectAudio.gameObject.GetComponent<AudioSource>().enabled = true;
         }
     }
 }
